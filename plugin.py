@@ -1,7 +1,7 @@
 import xbmcplugin
 import xbmcgui
 
-import subsonic
+from resources.lib import Subsonic
 
 def CATEGORIES():
     addDir("","",1,"")
@@ -18,7 +18,7 @@ def addDir(name,url,mode,iconimage):
         print(name + ":" + url)
 
 def fetchFolder():
-    s = subsonic.Subsonic('http://bruelldb:4040', 'test', 'test')
+    s = Subsonic.Subsonic('http://bruelldb:4040', 'test', 'test')
     folders = s.getMusicFolders()
     for folder in folders['musicFolders']['musicFolder']:
         handleFolder(folder)

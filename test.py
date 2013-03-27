@@ -1,7 +1,7 @@
-import subsonic
+from resources.lib import Subsonic
 
 
-s = subsonic.Subsonic('http://bruelldb:4040', 'test', 'test')
+s = Subsonic.Subsonic('http://bruelldb:4040', 'test', 'test')
 
 def fetchMusicFolder():
     print(s.ping())
