@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
-	<category label="32001">
+	<category label="30014">
 	    <setting type="lsep" label="32001" />
 	    <setting id="transcode" type="bool" label="30104" default="true" />
 	    <setting id="bitrate" type="enum" label="30105" default="13"
 			values="32k|40k|48k|56k|64k|80k|96k|112k|128k|160k|192k|224k|256k|320k"
 			enable="eq(-1,true)" />
 	</category>
+	<category label="30110">
+		<setting label="30041" type="bool" id="0_enabled" default="true" />
+		<setting label="30002" type="text" id="0_name" default="Profile 1"/>
+		<setting label="30000" type="text" id="0_subsonic_host" default="localhost"/>
+		<setting label="30001" type="text" id="0_subsonic_port" default="4040"/>
+		<setting label="30034" type="text" id="0_subsonic_user" option="hidden" default="" />
+		<setting label="30035" type="text" id="0_subsonic_pass" option="hidden" default="" />
+	</category>
+	<category label="30111">
+		<setting label="30041" type="bool" id="1_enabled" default="true" />
+		<setting label="30002" type="text" id="1_name" default="Profile 2"/>
+		<setting label="30000" type="text" id="0_subsonic_host" default="localhost"/>
+		<setting label="30001" type="text" id="0_subsonic_port" default="4040"/>
+		<setting label="30034" type="text" id="0_subsonic_user" option="hidden" default="" />
+		<setting label="30035" type="text" id="0_subsonic_pass" option="hidden" default="" />
+	</category>
+	<category label="30112">
+		<setting label="30041" type="bool" id="2_enabled" default="true" />
+		<setting label="30002" type="text" id="2_name" default="Profile 3"/>
+		<setting label="30000" type="text" id="0_subsonic_host" default="localhost"/>
+		<setting label="30001" type="text" id="0_subsonic_port" default="4040"/>
+		<setting label="30034" type="text" id="0_subsonic_user" option="hidden" default="" />
+		<setting label="30035" type="text" id="0_subsonic_pass" option="hidden" default="" />
+	</category>
+
 </settings>

@@ -1,13 +1,10 @@
-import xbmcplugin
-import xbmcgui
+import sys, re
+import xbmc, xbmcplugin, xbmcgui
 
 from resources.lib import Subsonic
 
-def CATEGORIES():
-    addDir("","",1,"")
-    addDir("","",1,"")
-    addDir("","",1,"")
-    addDir("","",1,"")
+base_url=sys.argv[0]
+handle=int(sys.argv[1])
 
 def addDir(name,url,mode,iconimage):
     if mode == None or url == None or len(url) < 1:
@@ -18,21 +15,41 @@ def addDir(name,url,mode,iconimage):
         print(name + ":" + url)
 
 def fetchFolder():
-    s = Subsonic.Subsonic('http://bruelldb:4040', 'test', 'test')
-    folders = s.getMusicFolders()
+    subsonic = Subsonic.Subsonic('http://bruelldb:4040', 'test', 'test')
+    folders = subsonic.getMusicFolders()
+    total=len(folders)
     for folder in folders['musicFolders']['musicFolder']:
-        handleFolder(folder)
+        addToXbmc("test", "test", 1, total)
+        #addToXbmc(folder['name'], folder['name'], 1)
 
 def handleFolder(folder):
-    indexes = s.getIndexes(folder['id'])['indexes']
+    subsonic = Subsonic.Subsonic('http://bruelldb:4040', 'test', 'test')
+    indexes = subsonic.getIndexes(folder['id'])['indexes']
     indexList = indexes['index']
     return indexList
 
-def addToXbmc(name,link,mode,iconimage):
-    liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png")
-    liz.setInfo(type="music", infoLabels={"Title": name})
-    ok = xbmcplugin.addDirectory(handle=int(sys.argv[1]), url=link, listitem=liz, isFolder=True)
+def addToXbmc(name,link,mode,totalItems=0):
+    xbmc.log('name: ' + str(name) + ", link: " + str(link) + ", mode: " + str(mode), xbmc.LOGNOTICE)
+    title=decode(name)
+    img=''
+    #liz=xbmcgui.ListItem(title, iconImage="DefaultFolder.png")
+    liz=xbmcgui.ListItem(title, iconImage=img, thumbnailImage=img)
+    #liz.setInfo(type="music", infoLabels={"Title": title})
+    url=base_url + "?folder=" + name
+    xbmc.log('handle: ' + str(handle) + ", url: " + url, xbmc.LOGNOTICE)
+    ok = xbmcplugin.addDirectoryItem(handle=handle, url=url, listitem=liz, isFolder=True, totalItems=totalItems)
     return ok
 
+def _callback(matches):
+    id = matches.group(1)
+    try:
+        return unichr(int(id))
+    except:
+        return id
 
-CATEGORIES()
+def decode(data):
+    if type(data) is int:
+        data = unicode(data)
+    return re.sub("&#(\d+)(;|(?=\s))", _callback, data).strip()
+
+addDir(None,None,None,None)

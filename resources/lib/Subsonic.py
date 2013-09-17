@@ -1,4 +1,3 @@
-import simplejson as json
 import JsonHelper
 
 class Subsonic:

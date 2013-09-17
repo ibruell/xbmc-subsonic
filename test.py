@@ -7,9 +7,16 @@ def fetchMusicFolder():
     print(s.ping())
     print('=================')
     folders = s.getMusicFolders()
-    for folder in folders['musicFolders']['musicFolder']:
-        print(folder['name'])
+    fList = []
+    folderList = folders['musicFolders']['musicFolder']
+    for folder in folderList:
+        #print(folder['name'])
+        item = {}
+        item['name'] = folder['name']
+        item['id'] = folder['id']
+        fList.append(item)
         #handleFolder(folder)
+    return fList
 
 def handleFolder(folder):
     indexes = s.getIndexes(folder['id'])['indexes']
@@ -106,6 +113,9 @@ def handleAlbumList(albumList):
 def handleAlbum(album):
     print('  ' + album['album'] + ' - ' + album['title'])
 
-fetchMusicFolder()
+folders = fetchMusicFolder()
+for folder in folders:
+    print(folder['name'])
+    handleFolder(folder)
 #fetchVideoFolder()
 #fetchArtists()
